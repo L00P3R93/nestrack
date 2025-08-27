@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\Organizations\Schemas;
+namespace App\Filament\Clusters\Assets\Resources\Organizations\Schemas;
 
-use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Models\Organization;
-use Filament\Actions\Action;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -87,11 +84,13 @@ class OrganizationForm
                         ->helperText('If not active, the organization will not be visible to users')
                         ->required()
                 ])->columnSpanFull(),
-                MarkdownEditor::make('address')
-                    ->label('Organization Address')
-                    ->placeholder('Enter organization postal or physical address')
-                    ->default(null)
-                    ->columnSpanFull(),
+                Section::make()->schema([
+                    MarkdownEditor::make('address')
+                        ->label('Organization Address')
+                        ->placeholder('Enter organization postal or physical address')
+                        ->default(null)
+                        ->columnSpanFull(),
+                ])->columnSpanFull(),
             ])->columns(2)->columnSpan(['lg' => fn (?Organization $record) => $record === null ? 3 : 2]),
             Section::make()->schema([
                 TextEntry::make('created_at')->state(fn (Organization $record): ?string => $record->created_at?->diffForHumans()),

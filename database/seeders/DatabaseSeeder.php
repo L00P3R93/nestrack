@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Organization;
+use App\Models\Property;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Collection;
@@ -46,8 +48,13 @@ class DatabaseSeeder extends Seeder
         $users->each(function (User $user) {
             $roles = ['Manager', 'Landlord', 'Tenant'];
             $user->assignRole($roles[array_rand($roles)]);
+            if($user->hasRole('Manager') or $user->hasRole('Landlord')){
+                $organizations = Organization::factory()->count(rand(1, 4))->has(
+                    Property::factory()->count(rand(1, 3))
+                )->create(['user_id' => $user->id]);
+            }
         });
-        $this->command->info('Non-Admin users ' . $users->count() . ' created and assigned roles.');
+        $this->command->info('Non-Admin users ' . $users->count() . ' created, assigned roles and organizations.');
     }
 
     private function seedRoles() {
@@ -56,6 +63,7 @@ class DatabaseSeeder extends Seeder
         $permissions = [
             'manage users',
             'manage roles',
+            'manage permissions',
             'manage properties',
             'view properties',
             'manage tenants',
@@ -77,6 +85,9 @@ class DatabaseSeeder extends Seeder
         $roles = [
             'Admin' => $permissions,
             'Manager' => [
+                'manage users',
+                'manage roles',
+                'manage permissions',
                 'manage properties',
                 'manage tenants',
                 'manage leases',
@@ -85,6 +96,7 @@ class DatabaseSeeder extends Seeder
                 'generate reports',
             ],
             'Landlord' => [
+                'manage users',
                 'view properties',
                 'view tenants',
                 'view leases',

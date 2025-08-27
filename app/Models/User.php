@@ -13,6 +13,7 @@ use Filament\Panel;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -98,7 +99,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         });
     }
 
-    public function organization(): BelongsTo {
-        return $this->belongsTo(Organization::class);
+    public function organizations(): HasMany {
+        return $this->hasMany(Organization::class);
     }
 }

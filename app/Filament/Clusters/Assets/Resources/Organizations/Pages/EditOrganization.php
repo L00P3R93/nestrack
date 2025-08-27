@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Organizations\Pages;
+namespace App\Filament\Clusters\Assets\Resources\Organizations\Pages;
 
-use App\Filament\Resources\Organizations\OrganizationResource;
+use App\Filament\Clusters\Assets\Resources\Organizations\OrganizationResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 

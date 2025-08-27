@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\Properties\Schemas;
+namespace App\Filament\Clusters\Assets\Resources\Properties\Schemas;
 
 use App\Models\Property;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Properties\Pages;
+namespace App\Filament\Clusters\Assets\Resources\Properties\Pages;
 
-use App\Filament\Resources\Properties\PropertyResource;
+use App\Filament\Clusters\Assets\Resources\Properties\PropertyResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
