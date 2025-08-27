@@ -12,6 +12,7 @@ use Filament\Notifications\Notification;
 use Filament\Panel;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -95,5 +96,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
                     Action::make('View')->url(UserResource::getUrl('edit', ['record' => $user])),
                 ])->sendToDatabase(User::query()->where('is_admin', true)->get());
         });
+    }
+
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class);
     }
 }

@@ -60,15 +60,15 @@ class UserForm
                     ->required(),
                 Select::make('roles')
                     ->relationship('roles', 'name')
-                    ->label('Roles')
-                    ->preload()
+                    ->label('User Roles')
+                    //->preload()
                     ->multiple()
                     ->native(false)
                     //->disabled(fn (?User $record) => $record !== null)
-                    ->createOptionAction(fn (Action $action) => $action->visible(auth()->user()->can('manage roles')))
-                    ->createOptionForm(function () {
+                    //->createOptionAction(fn (Action $action) => $action->visible(auth()->user()->can('manage roles')))
+                    /*->createOptionForm(function () {
                         return RoleForm::configure(Schema::wrap())->getComponents();
-                    })
+                    })*/
                     ->searchable()
                     ->required(),
                 Toggle::make('is_admin')
@@ -79,7 +79,7 @@ class UserForm
                     ->offColor('danger')
                     ->helperText('This will give the user admin privileges.')
                     ->disabled(fn () => !auth()->user()->hasRole('Admin'))
-                    ->default(false)
+                    ->default(fn (?User $record) => $record === null ? false : $record->is_admin)
                     ->required(),
 
                 Section::make('Password')->schema([
