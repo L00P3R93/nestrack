@@ -23,7 +23,9 @@ class PropertyResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
-    protected static ?string $navigationParentItem = 'Assets';
+
+
+    protected static ?string $navigationLabel = 'Properties';
     protected static ?int $navigationSort = 1;
 
 
@@ -59,6 +61,11 @@ class PropertyResource extends Resource
             'create' => CreateProperty::route('/create'),
             'edit' => EditProperty::route('/{record}/edit'),
         ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name'];
     }
 
     public static function getNavigationBadge(): ?string

@@ -13,5 +13,5 @@ class AssetsCluster extends Cluster
 
     protected static string | UnitEnum | null $navigationGroup = 'Manage';
     protected static ?int $navigationSort = 0;
-    protected static ?string $slug = 'manage/properties';
+    protected static ?string $slug = 'manage/assets';
 }

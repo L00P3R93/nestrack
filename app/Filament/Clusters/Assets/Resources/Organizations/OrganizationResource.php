@@ -22,7 +22,7 @@ class OrganizationResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::BuildingOffice;
-    protected static ?string $navigationParentItem = 'Assets';
+    protected static ?string $navigationParentItem = 'Properties';
     protected static ?int $navigationSort = 0;
 
 
