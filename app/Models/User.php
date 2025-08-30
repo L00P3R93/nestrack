@@ -11,6 +11,7 @@ use Filament\Models\Contracts\HasAvatar;
 use Filament\Notifications\Notification;
 use Filament\Panel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +20,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar
+class User extends Authenticatable implements FilamentUser, HasAvatar, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
@@ -74,6 +75,12 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         $hash = md5(strtolower(trim($this->email)));
         return "https://www.gravatar.com/avatar/{$hash}?s=200&d=retro";
+    }
+
+    public static function afterCreate($record): void {
+        if($record instanceof User && $record->email) {
+            $record->sendEmailVerificationNotification();
+        }
     }
 
     protected static function booted(): void
